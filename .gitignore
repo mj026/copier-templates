@@ -1,0 +1,20 @@
+# Code
+.idea/
+.vscode/
+
+# Django
+*.mo
+
+# OSX
+.DS_Store
+
+# Python
+__pycache__/
+*.egg-info/
+*.pyc
+
+# Project
+.env
+.envrc
+.venv/
+.**_cache

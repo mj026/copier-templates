@@ -1,0 +1,102 @@
+# questions
+template:
+  type: str
+  choices:
+    - python-package
+    - django-project
+    - vite-project
+    - revealjs-presentation
+
+project_type:
+  type: str
+  choices: 
+    - python
+    - node
+  default: "{% if template in ['python-package', 'django-project'] %}python{% else %}node{% endif %}"
+  when: false
+
+author_name:
+  type: str
+  help: "Full name of the Author"
+  default: "Martijn Jacobs"
+
+author_email:
+  type: str
+  help: "E-mail of the Author"
+  default: "martijn@mj026.nl"
+
+github_username:
+  type: str
+  help: "Github Username"
+  default: "mj026"
+
+project_name:
+  type: str
+  help: "Project Name (human readable version)"
+  default: "My Package"
+
+project_slug:
+  type: str
+  help: "Project slug"
+  default: "{{ project_name.lower().replace(' ', '-') }}"
+
+package_name:
+  type: str
+  help: "The name of the package"
+  default: "{{ project_slug.replace('-', '_') }}"
+
+software_license:
+  type: str
+  help: Software license
+  default: MIT License
+  choices:
+    - Apache License 2.0
+    - GNU General Public License v3.0
+    - GNU Lesser General Public License v3.0
+    - MIT License
+    - Other/Proprietary License
+
+python_specifier:
+  type: str
+  help: The python version
+  default: "3.14"
+  when: "{{ project_type == 'python' }}"
+
+docker_base_image:
+  type: str
+  help: Which docker base image to use
+  default: alpine
+  choices:
+    - alpine
+    - debian
+  when: "{{ project_type == 'python' }}"
+
+docker_image_name:
+  type: str
+  help: The docker image name which will be used for this project
+  default: "{{ project_slug }}"
+  when: "{{ project_type == 'python' }}"
+
+docker_port:
+  type: int
+  help: The default port which will be forwarded to the docker container
+  default: 8000
+  when: "{{ template == 'django-project' }}"
+
+postgres_host:
+  type: str
+  help: The development postgres host
+  default: postgres
+  when: "{{ template == 'django-project' }}"
+
+_subdirectory: "templates/{{ template }}"
+_answers_file: ".copier-answers.{{ template }}.yml"
+
+_exclude:
+  - .venv
+  - .git
+  - jinja
+
+_tasks:
+  - command: "git init -b main"
+    when: "{{ _copier_operation == 'copy' }}"

@@ -1,0 +1,13 @@
+{% extends "templates/python-package/Makefile.jinja" %}
+{% block phony -%}dev{%- endblock %}
+{% block extra -%}
+migrate: install
+	uv run manage.py migrate
+
+superuser: migrate
+	uv run manage.py createsuperuser
+
+dev: migrate
+	uv run manage.py runserver 0.0.0.0:{{ docker_port }}
+{%- endblock %}
+

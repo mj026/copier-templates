@@ -1,0 +1,11 @@
+import type { UserConfig } from "vite";
+
+export default {
+  root: "src",
+  publicDir: "../public",
+  build: {
+    target: "es2015",
+    outDir: "../dist",
+    emptyOutDir: true,
+  },
+} satisfies UserConfig;

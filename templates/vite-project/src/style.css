@@ -1,0 +1,28 @@
+@font-face {
+	font-display: block;
+	font-family: "WorkSans";
+	font-style: normal;
+	font-weight: 450;
+	src: url("fonts/WorkSans-VariableFont_wght.ttf") format("truetype");
+}
+
+@font-face {
+	font-display: block;
+	font-family: "Lilex";
+	font-style: normal;
+	font-weight: normal;
+	src: url("fonts/Lilex-Regular.woff2") format("woff2");
+}
+
+:root {
+	font-family: WorkSans, sans-serif;
+}
+
+.logo {
+	position: fixed;
+	display: block;
+	left: 2.5rem;
+	top: 2.5rem;
+	width: 10%;
+	z-index: 100;
+}

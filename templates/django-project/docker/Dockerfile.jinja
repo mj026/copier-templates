@@ -1,0 +1,6 @@
+{% extends "jinja2/Dockerfile.python." ~ docker_base_image ~ ".jinja" %}
+
+{% block extra -%}
+# Needed for Django
+{% include "jinja2/snippets/gettext." ~ docker_base_image ~ ".jinja" %}
+{%- endblock %}

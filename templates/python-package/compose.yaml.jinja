@@ -1,0 +1,32 @@
+services:
+  devcontainer:
+    container_name: {{ project_slug }}
+    image: {{ docker_image_name }}
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
+    volumes:
+      - .:${WORKSPACE_FOLDER}
+    {% block ports -%}
+    {%- endblock %}
+    working_dir: ${WORKSPACE_FOLDER}
+    restart: on-failure:3
+    {% block environment -%}
+    environment:
+      - LSP_MODE=local
+      - SHELL=bash 
+      - UV_LINK_MODE=copy
+    {%- endblock %}  
+    {% block command -%}
+    command: |
+      /bin/bash -c "
+        trap "exit" SIGTERM
+        uv sync --extra dev && sleep infinity &
+        wait
+      "
+    {%- endblock %}
+    {% block extra -%}    
+    {%- endblock %}
+
+  {% block services -%}    
+  {% endblock %}

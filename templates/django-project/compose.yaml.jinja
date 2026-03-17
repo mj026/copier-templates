@@ -1,0 +1,35 @@
+{% extends "templates/python-package/compose.yaml.jinja" %}
+{% block ports -%}
+    ports:
+      - {{ docker_port }}:{{ docker_port }}
+{%- endblock %}
+    {% block extra -%}
+    env_file: 
+        - ./.env
+        - ./docker/.env
+    depends_on:
+      postgres:
+        condition: service_healthy        
+{%- endblock %}
+
+{% block services -%}
+  postgres:
+    image: postgres:alpine
+    restart: unless-stopped
+    volumes:
+      - postgres-data:/var/lib/postgresql    
+    environment:
+      - POSTGRES_DB={{ project_slug }}
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+      interval: 2s
+      timeout: 2s
+      retries: 8
+
+volumes:
+  postgres-data:
+{%- endblock %}

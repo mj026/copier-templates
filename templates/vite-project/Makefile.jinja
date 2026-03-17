@@ -1,0 +1,18 @@
+.PHONY: install lint format {% block phony -%}{%- endblock %}
+
+default: install
+
+install:
+	npm install
+
+lint:
+	npm run lint
+
+format:
+	npm run format
+
+test:
+	npm run test
+
+{% block extra -%}
+{%- endblock %}

@@ -1,0 +1,49 @@
+@import "reveal.js/reset.css";
+@import "reveal.js/reveal.css";
+@import "reveal.js/theme/black.css";
+@import "reveal.js/plugin/highlight/monokai.css";
+
+@font-face {
+	font-display: block;
+	font-family: "WorkSans";
+	font-style: normal;
+	font-weight: 450;
+	src: url("fonts/WorkSans-VariableFont_wght.ttf") format("truetype");
+}
+
+@font-face {
+	font-display: block;
+	font-family: "Lilex";
+	font-style: normal;
+	font-weight: normal;
+	src: url("fonts/Lilex-Regular.woff2") format("woff2");
+}
+
+:root {
+	--main-font: "WorkSans";
+	--mj-blue: #356baf;
+	--mj-blue-secondary: #517db8;
+	--r-heading-font: var(--main-font);
+	--r-main-font: "WorkSans";
+	--r-main-font-size: 40px;
+	--r-background-color: var(--mj-blue);
+	--r-link-color: #ff5141;
+}
+
+.logo {
+	position: fixed;
+	display: block;
+	left: 2.5rem;
+	top: 2.5rem;
+	width: 10%;
+	z-index: 100;
+}
+
+.slide {
+	background-image: linear-gradient(var(--mj-blue), var(--mj-blue-secondary));
+}
+
+.small {
+	margin: 4rem;
+	font-size: 50%;
+}

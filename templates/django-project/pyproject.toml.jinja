@@ -1,0 +1,22 @@
+{% extends "templates/python-package/pyproject.toml.jinja" %}
+
+{% block dependencies -%}
+dependencies = [
+	"django ~= 5.2",
+	"django-environ",
+	"psycopg[binary] ~= 3.2"
+]
+{%- endblock %}
+
+{% block scripts -%}
+[project.scripts]
+"manage.py" =  "{{ package_name }}.manage:main"
+{%- endblock %}
+
+{% block ruff_exclude -%}
+extend-exclude = ["docker/**", "src/{{ package_name }}/migrations/**"]
+{%- endblock %}
+
+{% block zuban_exclude -%}
+exclude = [".venv/*", "docker/*", "src/{{ package_name }}/settings/**", "src/{{ package_name }}/migrations/**"]
+{%- endblock %}

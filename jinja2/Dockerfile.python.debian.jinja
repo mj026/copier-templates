@@ -1,0 +1,28 @@
+FROM python:{{ python_specifier }}-slim-trixie
+
+# Update needed
+RUN apt-get update 
+
+# Add bash shell
+RUN apt-get install -y bash
+
+# Add git
+RUN apt-get install -y git
+
+# Add make
+RUN apt-get install -y make
+
+# Add these packages so Zed editor can do its thing
+RUN apt-get install -y curl
+
+# Install uv
+RUN pip install "uv~=0.9"
+
+{% block extra -%}
+{%- endblock %}
+
+RUN adduser -D {{ project_slug }}
+USER {{ project_slug }}
+
+CMD ["python"]
+

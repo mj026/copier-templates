@@ -1,0 +1,45 @@
+name: CI
+on: [push, pull_request]
+
+jobs:
+  run-copier:
+    strategy:
+      matrix:
+        t:
+          - label: Python Package
+            template: python-package
+
+          - label: Django Project
+            template: django-project
+
+          - label: Vite project
+            template: vite-project
+
+          - label: RevealJS Presentation
+            template: revealjs-presentation
+
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v5
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+        with:
+          python-version: "3.14"
+          enable-cache: true
+          cache-python: true         
+          prune-cache: false
+
+      - name: Install dependencies
+        run: |
+          uv venv --allow-existing
+          uv pip install -r ci-requirements.txt --link-mode=copy
+
+      - name: Run copier
+        run: |
+          uv run copier copy --trust -l -d "template=${{ matrix.t.template }}" -d "project_name=${{ matrix.t.label }}" . ./${{ matrix.t.template }}
+          cd ${{ matrix.t.template }}
+          make install
+          make lint
+          make test

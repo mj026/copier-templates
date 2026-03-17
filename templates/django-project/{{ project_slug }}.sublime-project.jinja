@@ -1,0 +1,16 @@
+{% extends "jinja2/project.python.sublime-project.jinja" %}
+{% block extra %}
+    "build_systems":
+    [
+        {
+            "name": "Run docker shell",
+            "target": "terminus_exec",
+            "cancel": "terminus_cancel_build",
+            "focus": true,
+            "cmd": [
+                "$folder/docker/bin/shell"
+            ],
+            "working_dir": "$folder",
+        }
+    ],
+{%- endblock %}

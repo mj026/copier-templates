@@ -1,0 +1,23 @@
+.PHONY: install lint format test coverage {% block phony -%}{%- endblock %}
+
+default: install
+
+install:
+	uv sync --extra dev
+
+lint:
+	uv run zmypy src
+	uv run ruff check
+
+format:
+	uv run ruff check --fix
+	uv run ruff format
+
+test:
+	uv run pytest tests src/{{ package_name }}
+
+coverage:
+	uv run pytest --cov={{ package_name }} tests src/{{ package_name }} --cov-report=term
+
+{% block extra -%}
+{%- endblock %}
