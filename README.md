@@ -20,3 +20,9 @@ copier copy --trust -d "template=python-package" -d "project_name=Sample Python 
 ```bash
 copier copy --trust -d "template=vite-project" -d "project_name=Sample Vite Project" gh:mj026/copier-templates ./sample-vite-project
 ```
+
+## Local GitHub actions 
+
+Run with [act](https://github.com/nektos/act) for MacOS:
+```bash
+act --container-architecture linux/arm64 --container-daemon-socket unix:///var/run/docker.sock -P ubuntu-latest=node:24-bookworm
